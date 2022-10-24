@@ -214,7 +214,7 @@
 
                             <li class="nav-item">
                                 <a href="{{url('roles')}}" class="{{ Request::path() === 'roles' ? 'nav-link active' : 'nav-link' }}">
-                                    <i class="nav-icon fas fa-users"></i>
+                                    <i class="nav-icon fas fa-users">e</i>
                                     <p>Roles</p>
                                 </a>
                             </li>
