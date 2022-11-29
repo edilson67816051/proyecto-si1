@@ -23,7 +23,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->boolean('estado');
         });
+        DB::table('users')->insert(array('name'=>'Administrador','username'=>'admin',
+        'apellido'=>'admin','email'=>'admin@gmail.com','password'=> bcrypt('1234'),'estado'=>1));
     }
 
     public function down()

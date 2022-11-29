@@ -43,7 +43,7 @@
                 <!-- SEARCH FORM -->
                 <form class="form-inline ml-3">
                     <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                        <input class="form-control form-control-navbar" name='search' type="search" placeholder="Search"
                             aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-navbar" type="submit">
@@ -211,10 +211,18 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item">
+                                <a href="{{url('ventas')}}"
+                                    class="{{ Request::path() === 'ventas' ? 'nav-link active' : 'nav-link' }}">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Ventas</p>
+                                </a>
+                            </li>
+
 
                             <li class="nav-item">
                                 <a href="{{url('roles')}}" class="{{ Request::path() === 'roles' ? 'nav-link active' : 'nav-link' }}">
-                                    <i class="nav-icon fas fa-users">e</i>
+                                    <i class="nav-icon fas fa-users"></i>
                                     <p>Roles</p>
                                 </a>
                             </li>
@@ -223,8 +231,9 @@
 
 
                             <li class="nav-item">
-                                <a  class="nav-link active' : 'nav-link' ">
-                                    <i class="nav-icon fas fa-clients"></i>
+                                <a href="{{url('clientes')}}" class="{{Request::path() === 'clientes' ? 'nav-link active' : 'nav-link' }}">
+                       
+                                    <i class="bi bi-people fa-clientes"></i>
                                     <p>Clientes</p>
                                 </a>
                             </li>

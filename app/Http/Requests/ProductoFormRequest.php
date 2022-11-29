@@ -13,7 +13,7 @@ class ProductoFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,11 +24,12 @@ class ProductoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'codigo'=>'required',
+            'codigo'=>'required|numeric|max:99999999',
             'name'=>'required|max:50',
-            'stock'=>'required|numeric',
+            'stock'=>'required|numeric|max:1000',
+            'precio'=>'required|numeric|max:1000',
             'descripcion'=>'max:100',
-            'imagen'=>'mimes:jpeg,png,bmp'
+            'imagen'=>'mimes:jpeg,png,bmp,jfif'
         ];
     }
 }

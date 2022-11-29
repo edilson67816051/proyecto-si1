@@ -26,21 +26,27 @@
             <td>{{$p->descripcion}}</td>
   
             <td>
-              <form action="" method="POST">
-                <a href=""><button type="button" class="btn btn-primary">Editar</button></a>             
+              <form action="{{route('categorias.destroy',$p->id)}}" method="POST">
+                <a href="{{route('categorias.edit',$p->id)}}"><button type="button" class="btn btn-primary">Editar</button></a>             
                  @csrf
                  @method('DELETE')
                  <button type="submit" class="btn btn-danger">Eliminar</button>
               </form>
-            </td>
-            
+            </td>          
           </tr>
         @endforeach
-
+        
       </table>
+      
     </div>
+   
   </div>  
+  
 </div>
-
+<div class="row">
+  <div class="mx-auto">
+   {{$categorias->links()}}
+  </div>
+</div>
 
 @endsection

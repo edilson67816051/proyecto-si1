@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
   <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-    <h2>Listar los Productos <a href="productos\create">
+    <h2>Lista de los Productos <a href="productos\create">
           <button type="button" class="btn btn-success">Nuevo</button></a> 
    </h2>
  </div>  
@@ -14,7 +14,7 @@
     <div class="table-responsive">
       <table class="table table-striped table-borded table-condensed table-hover">
         <thead>
-          <th>Id</th>
+          <th>Codigo</th>
           <th>Nombre</th>
           <th>Imagen</th>
           <th>Descripcion</th>
@@ -22,21 +22,22 @@
         </thead>
         @foreach ($productos as $p)
           <tr>
-            <td>{{$p->id}}</td>
+            <td>{{$p->codigo}}</td>
             <td>{{$p->name}}</td>
             <td>
-                  
-              <img src="{{asset('imagenes/productos/'.$p->imagen)}}" alt="{{$p->name}}" height="100px" width="100px" class="img-thumbnail">
+               @if ($p->imagen)
+                  <img src="{{asset('imagenes/productos/'.$p->imagen)}}" alt="{{$p->name}}" height="100px" width="100px" class="img-thumbnail">
+               @endif
             </td>
             <td>{{$p->descripcion}}</td>
 
             <td>
                 <form action="{{route('productos.destroy',$p->id)}}" method="POST">
-                <a href=""><button type="button" class="btn btn-secondary">Detalle</button></a>
-                <a href=""><button type="button" class="btn btn-primary">Editar</button></a>             
+                <a href="{{route('productos.show',$p->id)}}"><button type="button" class="btn btn-secondary"><i class="fa fa-info"></i></button></a>
+                <a href="{{route('productos.edit',$p->id)}}"><button type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button></a>             
                  @csrf
                  @method('DELETE')
-                 <button type="submit" class="btn btn-danger">Eliminar</button>
+                 <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
               </form>
             </td>
             

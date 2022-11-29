@@ -12,7 +12,7 @@ class Categoria extends Model
     use Notifiable;
     public $timestamps = false;
     protected $fillable = [
-        'name','descripcion'
+        'name','descripcion','estado'
     ];
 
     public function productos()
