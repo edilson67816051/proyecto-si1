@@ -6,8 +6,9 @@ use App\Cliente;
 use App\Producto;
 use App\Detalle_venta;
 use App\Nota_venta;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 
 class VenderController extends Controller
 {
@@ -53,7 +54,9 @@ class VenderController extends Controller
         }
 
         $this->agregarProductoACarrito($producto,$cantidad);
-        
+
+        DB::table('bitacoras')->insert(array('actividad'=>'Agrego Producto a Carrito Venta',
+        'fecha'=>date('Y-m-d H:i:s'),'users_id'=>auth()->user()->id,'estado'=>1));
         return redirect()->route("vender.index");
 
     }
@@ -143,7 +146,7 @@ class VenderController extends Controller
         $venta = new Nota_venta();
 
         $venta->cliente_id = request("id_cliente");
-        $venta->user_id =1;
+        $venta->user_id =auth()->user()->id;
         $venta->fecha = date('Y-m-d H:i:s');
         $venta->total_venta =$this->Monto_total();
         $venta->estado ='1';
@@ -166,6 +169,8 @@ class VenderController extends Controller
             $productoActualizado->saveOrFail();
         }
         $this->vaciarProductos();
+        DB::table('bitacoras')->insert(array('actividad'=>'Realizo una venta',
+        'fecha'=>date('Y-m-d H:i:s'),'users_id'=>auth()->user()->id,'estado'=>1));
         return redirect('/ventas');
     }
     public function cancelarVenta()

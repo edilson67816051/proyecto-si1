@@ -23,3 +23,14 @@ Route::get("/vender", "VenderController@index")->name("vender.index");
 Route::post("/productoDeVenta", "VenderController@agregarProductoVenta")->name("agregarProductoVenta");
 Route::Delete("/productoDeVenta", "VenderController@quitarProductoDeVenta")->name("quitarProductoDeVenta");
 Route::post("/terminarOCancelarVenta", "VenderController@terminarOCancelarVenta")->name("terminarOCancelarVenta");
+
+Route::resource('proveedor', 'ProveedorController');
+
+Route::resource('bitacora', 'BitacoraController');
+
+Route::resource('compras', 'CompraController');
+
+Route::get("/comprar", "ComprarController@index")->name("comprar.index");
+Route::post("/productoDeCompra", "ComprarController@agregarProductoCompra")->name("agregarProductoCompra");
+Route::Delete("/productoDecompra", "ComprarController@quitarProductoDeCompra")->name("quitarProductoDeCompra");
+Route::post("/terminarOCancelarCompra", "ComprarController@terminarOCancelarCompra")->name("terminarOCancelarCompra");

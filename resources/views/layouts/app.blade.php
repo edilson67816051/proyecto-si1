@@ -172,9 +172,17 @@
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Iniciar Sesión') }}</a>
                                 @else
                                 {{ Auth::user()->name }}
+                                <?php 
+                                $p= DB::table('users')
+                                ->join('role_user', 'role_user.user_id', '=', 'users.id')
+                                ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                                ->where('users.id', '=', Auth::user()->id)
+                                ->get();
+                                ?>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">
                                     Cerrar Sesión
+
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -198,72 +206,138 @@
                                     <p>Inicio</p>
                                 </a>
                             </li>
-                            
-                            <li class="nav-item">
-                                <a href="{{url('usuarios')}}"
-                                    class="{{ Request::path() === 'usuarios' ? 'nav-link active' : 'nav-link' }}">
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-users"></i>
-                                    <p>
-                                        Usuarios
-                                        <?php $users_count = DB::table('users')->count(); ?>
-                                        <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>
-                                    </p>
+                                    <p>Usuarios<i class="fas fa-angle-left right"></i></p>
                                 </a>
-                            </li>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{url('usuarios')}}"
+                                            class="{{ Request::path() === 'usuarios' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="nav-icon fa fa-user-circle"></i>
+                                            <p>
+                                                Usuarios
+                                                <?php $users_count = DB::table('users')->count(); ?>
+                                                <span class="right badge badge-danger">{{ $users_count ?? '0' }}</span>    
 
-                            <li class="nav-item">
-                                <a href="{{url('ventas')}}"
-                                    class="{{ Request::path() === 'ventas' ? 'nav-link active' : 'nav-link' }}">
-                                    <i class="nav-icon fas fa-users"></i>
-                                    <p>Ventas</p>
-                                </a>
-                            </li>
-
-
-                            <li class="nav-item">
-                                <a href="{{url('roles')}}" class="{{ Request::path() === 'roles' ? 'nav-link active' : 'nav-link' }}">
-                                    <i class="nav-icon fas fa-users"></i>
-                                    <p>Roles</p>
-                                </a>
-                            </li>
-
-
-
-
-                            <li class="nav-item">
-                                <a href="{{url('clientes')}}" class="{{Request::path() === 'clientes' ? 'nav-link active' : 'nav-link' }}">
-                       
-                                    <i class="bi bi-people fa-clientes"></i>
-                                    <p>Clientes</p>
-                                </a>
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{url('bitacora')}}"
+                                            class="{{ Request::path() === 'bitacora' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="nav-icon fa fa-address-book"></i>
+                                            <p>Bitacora</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{url('roles')}}"
+                                            class="{{ Request::path() === 'roles' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="nav-icon fa fa-user-secret"></i>
+                                            <p>Roles</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
+                                    
                                     <i class="nav-icon far fa-sticky-note"></i>
-                                    <p>Almacen<i class="fas fa-angle-left right"></i></p>
+                                    <p>Ventas<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{url('ventas')}}"
+                                            class="{{ Request::path() === 'ventas' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="nav-icon fa fa-cart-plus"></i>
+                                            <p>
+                                                Nota Ventas
+                                                <?php $nota_count = DB::table('nota_ventas')->count(); ?>
+                                                <span class="right badge badge-danger">{{ $nota_count ?? '0' }}</span>    
+
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{url('bitacora')}}"
+                                            class="{{ Request::path() === 'bitacora' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="nav-icon far fa-sticky-note"></i>
+                                            <p>Facturas</p>
+                                        </a>
+                                    </li>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{url('clientes')}}"
+                                            class="{{ Request::path() === 'clientes' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="nav-icon fa fa-user"></i>
+                                            <p>clientes
+                                                <?php $count = DB::table('clientes')->count(); ?>
+                                                <span class="right badge badge-danger">{{ $count ?? '0' }}</span>    
+
+                                            </p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa fa-cart-arrow-down" aria-hidden="true"></i>
+
+                                    <p>Compras<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{url('compras')}}"
+                                            class="{{ Request::path() === 'compras' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="nav-icon fa fa-cart-plus"></i>
+                                            <p>
+                                                Compras 
+                                            </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{url('proveedor')}}"
+                                            class="{{ Request::path() === 'proveedor' ? 'nav-link active' : 'nav-link' }}">
+                                            <i class="nav-icon fa fa-user"></i>
+                                            <p>proveedores
+                                            </p>
+                                        </a>
+                                    </li>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa fa-columns" aria-hidden="true"></i>
+
+                                    <p>Producto<i class="fas fa-angle-left right"></i></p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <a href="{{url('productos')}}"
                                             class="{{ Request::path() === 'productos' ? 'nav-link active' : 'nav-link' }}">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Producto</p>
+                                            <p>
+                                                Producto 
+                                                <?php $nota_count = DB::table('productos')->count(); ?>
+                                                <span class="right badge badge-danger">{{ $nota_count ?? '0' }}</span>    
+
+                                            </p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{url('categorias')}}"
                                             class="{{ Request::path() === 'categorias' ? 'nav-link active' : 'nav-link' }}">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Categoria</p>
+                                            <p>Categoria
+                                               
+                                            </p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="notas/archivadas"
-                                            class="{{ Request::path() === 'notas/archivadas' ? 'nav-link active' : 'nav-link' }}">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Marcas</p>
-                                        </a>
                                     </li>
+                                    
                                 </ul>
                             </li>
                             <li class="nav-item has-treeview">

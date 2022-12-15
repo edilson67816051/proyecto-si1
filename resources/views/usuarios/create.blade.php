@@ -16,6 +16,10 @@
                     <input type="text" required minlength="3" maxlength="20" class="form-control" name="name" placeholder="Escribe tu nombre">
                 </div>
                 <div class="form-group">
+                    <label for="username">Nombre</label>
+                    <input type="text" required minlength="3" maxlength="20" class="form-control" name="username" placeholder="Escribe tu username">
+                </div>
+                <div class="form-group">
                     <label for="apellido">Apellido</label>
                     <input type="text"required  minlength="3" maxlength="20" class="form-control" name="apellido" placeholder="Escribe tu apellido">
                 </div>

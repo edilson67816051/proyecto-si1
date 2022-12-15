@@ -24,7 +24,7 @@
         <td>{{$nota->total_venta}}</td>
         <td>
           <form action="{{route('ventas.destroy',$nota->id)}}" method="POST">
-            <a href="{{route('ventas.show',$nota->id)}}"><button type="button" class="btn btn-info">Imprimir</button></a> 
+            <a href="{{route('ventas.store',$nota->id)}}"><button type="button" class="btn btn-info">Facturar</button></a> 
              <a href="{{route('ventas.show',$nota->id)}}"><button type="button" class="btn btn-secondary">Detalle</button></a> 
             
               @csrf

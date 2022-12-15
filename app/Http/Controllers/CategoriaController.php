@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Categoria;
+use App\User;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CategoriaFormRequest;
-
+use Illuminate\Support\Facades\DB;
 class CategoriaController extends Controller
 {
     public function index(Request $request){
@@ -33,6 +37,8 @@ class CategoriaController extends Controller
         $categoria->estado=1;
 
         $categoria->save();
+        DB::table('bitacoras')->insert(array('actividad'=>'creo categoria',
+        'fecha'=>date('Y-m-d H:i:s'),'users_id'=>auth()->user()->id,'estado'=>1));
         return redirect('/categorias');
 
     }
@@ -42,6 +48,8 @@ class CategoriaController extends Controller
         $categoria =Categoria::findOrFail($id);
         $categoria->estado=0;
         $categoria->save();
+        DB::table('bitacoras')->insert(array('actividad'=>'Elimino categoria',
+        'fecha'=>date('Y-m-d H:i:s'),'users_id'=>auth()->user()->id,'estado'=>1));
         return redirect('/categorias');
 
     }
@@ -56,7 +64,8 @@ class CategoriaController extends Controller
         $categoria->name = $request->get('name');
         $categoria->descripcion = $request->get('descripcion');
         $categoria->update();
-
+        DB::table('bitacoras')->insert(array('actividad'=>'Modifico categoria',
+        'fecha'=>date('Y-m-d H:i:s'),'users_id'=>auth()->user()->id,'estado'=>1));
         return redirect('/categorias');
     }
 }

@@ -38,7 +38,8 @@ class ClienteController extends Controller
         $cliente->telefono = request('telefono');
         $cliente->estado = 1;
         $cliente->save();
-
+        DB::table('bitacoras')->insert(array('actividad'=>'Creo Cliente',
+        'fecha'=>date('Y-m-d H:i:s'),'users_id'=>auth()->user()->id,'estado'=>1));
          return redirect('/clientes');
         
     }
@@ -49,6 +50,8 @@ class ClienteController extends Controller
     }
     public function update(ClienteFormRequest $request, $id)
     {
+       
+
         $cliente = Cliente::findOrFail($id);
         $cliente->ci = request('ci');
         $cliente->nombre = request('nombre');
@@ -58,7 +61,8 @@ class ClienteController extends Controller
              $cliente->genero = request('genero');
         $cliente->telefono = request('telefono');
         $cliente->update();
-
+        DB::table('bitacoras')->insert(array('actividad'=>'Modifico Cliente',
+        'fecha'=>date('Y-m-d H:i:s'),'users_id'=>auth()->user()->id,'estado'=>1));
         return redirect('/clientes');
 
     }
@@ -66,7 +70,12 @@ class ClienteController extends Controller
     {
         $cliente = Cliente::findOrFail($id);
         $cliente->estado=0;
-        $cliente->update();;
+        $cliente->update();
+
+        DB::table('bitacoras')->insert(array('actividad'=>'Elimino Cliente',
+        'fecha'=>date('Y-m-d H:i:s'),'users_id'=>auth()->user()->id,'estado'=>1));
+
+
         return redirect('/clientes');
     }
 }

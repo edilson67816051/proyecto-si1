@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
   <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-    <h2>Lista de los Productos <a href="productos\create">
+    <h2>Lista de los Productos <a href={{url("productos\create")}}>
           <button type="button" class="btn btn-success">Nuevo</button></a> 
    </h2>
  </div>  

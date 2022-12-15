@@ -7,6 +7,7 @@ use App\User;
 use App\Role;
 use App\Http\Requests\UserFormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -33,10 +34,12 @@ class UserController extends Controller
         $usuarios->name = request('name');
         $usuarios->apellido = request('apellido');
         $usuarios->email = request('email');
+        $usuarios->username=request('username');
+        $usuarios->estado = 1;
         $usuarios->password = bcrypt(request('password'));
-
         $usuarios->save();
-        
+        DB::table('bitacoras')->insert(array('actividad'=>'Creo un usuario',
+        'fecha'=>date('Y-m-d H:i:s'),'users_id'=>auth()->user()->id,'estado'=>1));
         return redirect('/usuarios');
     }
 
@@ -69,7 +72,8 @@ class UserController extends Controller
         $usuarios->email = $request->get('email');
 
         $usuarios->update();
-
+        DB::table('bitacoras')->insert(array('actividad'=>'Modifico un usuario',
+        'fecha'=>date('Y-m-d H:i:s'),'users_id'=>auth()->user()->id,'estado'=>1));
         return redirect('/usuarios');
     }
 
@@ -80,6 +84,10 @@ class UserController extends Controller
         $usuarios = User::findOrFail($id);
 
         $usuarios->delete();
+
+        DB::table('bitacoras')->insert(array('actividad'=>'Elimino un usuario',
+        'fecha'=>date('Y-m-d H:i:s'),'users_id'=>auth()->user()->id,'estado'=>1));
+
         return redirect('/usuarios');
     }
 }
